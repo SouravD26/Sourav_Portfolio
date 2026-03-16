@@ -1,0 +1,251 @@
+:root {
+  --bg: #141414;
+  --panel: #1e1e1e;
+  --muted: #9aa0a6;
+  --accent: #9ccf4a;
+  --card: #222;
+  --text: #e8e8e8;
+}
+
+body,
+html,
+#root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Century Gothic", sans-serif;
+}
+
+.navbar {
+  background: transparent;
+  padding: 1rem 0;
+}
+
+.navbar .navbar-brand {
+  font-weight: 700;
+  color: #fff;
+}
+.navbar .nav-link {
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+.navbar .nav-link:hover {
+  color: var(--text);
+}
+
+.hero {
+  min-height: 520px;
+  background-image: url("./assets/hero-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  display: flex;
+}
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.65);
+}
+.hero .hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  color: #fff;
+}
+.hero h1 {
+  color: #fff;
+  font-size: 48px;
+  letter-spacing: 0.5px;
+}
+.hero .lead {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+.section-title span {
+  color: #fff;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+.portfolio-card {
+  background: transparent;
+  border: none;
+  color: var(--text);
+}
+.portfolio-card img {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.portfolio-card .card-body {
+  background: transparent;
+  padding: 12px 0;
+}
+
+.typing-text {
+  white-space: pre-line;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 500;
+  /* font-family: "Helvetica Neue", Arial, sans-serif; */
+  display: inline-block;
+  border-right: 2px solid #9ccf4a;
+  padding-right: 6px;
+  animation: blink 0.65s step-end infinite alternate;
+}
+
+@keyframes blink {
+  from {
+    border-color: transparent;
+  }
+  to {
+    border-color: #9ccf4a;
+  }
+}
+
+.resume-card {
+  background: var(--panel);
+  border: none;
+  color: var(--text);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.resume-card .card-body {
+  padding: 18px;
+}
+
+.profile-img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 4px solid rgba(255, 255, 255, 0.03);
+}
+
+.contact-form .form-control {
+  background: #121212;
+  border: 1px solid whitesmoke;
+  color: var(--text);
+}
+.contact-details {
+  background: var(--panel);
+  color: var(--muted);
+}
+.contact-details a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.contact-form .form-control:focus {
+  background: #121212;
+  border-color: #9ccf4a;
+  color: var(--text);
+  box-shadow: 0 0 0 0.2rem rgba(156, 207, 74, 0.25);
+}
+
+.contact-form .form-control::placeholder {
+  color: #dad5d5;
+  opacity: 0.7;
+}
+
+.blog-card {
+  background: var(--panel);
+  border: none;
+  color: var(--text);
+}
+.blog-card img {
+  height: auto;
+  object-fit: cover;
+}
+
+/* Blog card anchor wrapper */
+.blog-link {
+  display: block;
+  color: inherit;
+}
+
+/* Hover effect on the card */
+.blog-card {
+  transition: transform 220ms ease, box-shadow 220ms ease,
+    background-color 220ms ease;
+  will-change: transform;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+/* Slight lift + shadow */
+.blog-link:hover .blog-card,
+.blog-link:focus .blog-card {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Image scale and subtle overlay on hover */
+.blog-card .card-img-top {
+  transition: transform 300ms ease, filter 300ms ease;
+  transform-origin: center;
+}
+.blog-link:hover .blog-card .card-img-top,
+.blog-link:focus .blog-card .card-img-top {
+  transform: scale(1.06);
+  filter: brightness(0.95);
+}
+
+/* Emphasize title on hover */
+.blog-link:hover .blog-card .card-title b,
+.blog-link:focus .blog-card .card-title b {
+  color: var(--accent);
+}
+
+/* Ensure anchor doesn't change layout by default */
+.blog-link:focus {
+  outline: none;
+}
+
+/* Optional: keyboard-visible focus ring for accessibility */
+.blog-link:focus-visible .blog-card {
+  box-shadow: 0 0 0 3px rgba(156, 207, 74, 0.15),
+    0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.footer {
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+}
+.footer .social-link {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+}
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+
+.btn-success {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111;
+}
+
+@media (max-width: 767px) {
+  .hero h1 {
+    font-size: 34px;
+  }
+  .profile-img {
+    width: 160px;
+    height: 160px;
+  }
+}
