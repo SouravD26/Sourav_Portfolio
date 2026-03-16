@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚀 Sourav Dutta - Portfolio Website
 
 Welcome to my **interactive and modern portfolio website** built with cutting-edge web technologies! This portfolio showcases my skills, projects, and expertise as a Full-Stack Web Developer.
@@ -271,3 +272,6 @@ Thank you for visiting my portfolio! I'm always interested in hearing about new 
 ---
 
 _Last Updated: March 2026_
+=======
+# Sourav_Protfolio
+>>>>>>> c834cb78bc3bb4205dfad9c552cf398a44fec514
