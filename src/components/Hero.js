@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import profile from "../assets/profile.jpg";
+
+const TEXT_LINES = ["Hello, I'm", "Sourav Dutta"];
 
 const Hero = () => {
-  const textLines = ["Hello, I'm", "Sourav Dutta"];
   const [currentText, setCurrentText] = useState("");
   const [lineIndex, setLineIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
     // If we've finished all lines, stop.
-    if (lineIndex >= textLines.length) return;
+    if (lineIndex >= TEXT_LINES.length) return;
 
-    const currentLine = textLines[lineIndex] ?? "";
+    const currentLine = TEXT_LINES[lineIndex] ?? "";
 
     // If there are remaining characters in the current line, type next char.
     if (charIndex < currentLine.length) {
@@ -24,7 +24,7 @@ const Hero = () => {
 
     // Current line finished: wait, then move to next line (or stop).
     const t = setTimeout(() => {
-      if (lineIndex + 1 < textLines.length) {
+      if (lineIndex + 1 < TEXT_LINES.length) {
         setLineIndex((prev) => prev + 1);
         setCharIndex(0);
         setCurrentText((prev) => prev + "\n");
@@ -37,7 +37,7 @@ const Hero = () => {
       }
     }, 800);
     return () => clearTimeout(t);
-  }, [charIndex, lineIndex, textLines]);
+  }, [charIndex, lineIndex]);
 
   return (
     <header
