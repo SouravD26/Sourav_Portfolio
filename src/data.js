@@ -105,7 +105,7 @@ const education = [
 
 const experience = [
   {
-    company: "Sangreem Media LLP",
+    company: "Sangreem Media LLP (Sanmarg Pvt Ltd.)",
     role: "Web Developer",
     period: "Sep 2024 – Present",
     bullets: [
