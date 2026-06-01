@@ -8,6 +8,7 @@ import SanmargShortsImage from "../src/assets/SanmargShortsApp.jpeg";
 import CoffeeShopImage from "../src/assets/CoffeeShopWebpage.png";
 import WeatherAppImage from "../src/assets/WeatherApp.png";
 import FoodDeliveryImage from "../src/assets/FoodDeliveryWebpage.png";
+import JOKEGENERATORImage from "../src/assets/Joke-Generator.png";
 
 const social = {
   linkedin: "https://www.linkedin.com/in/sourav-dutta-41baa215a/",
@@ -28,13 +29,14 @@ const projects = [
     link: "https://hrms.sanmarg.in",
     img: AttendanceImage,
   },
-  // {
-  //   id: 2,
-  //   title: "Internal Media Division Site",
-  //   category: "WordPress",
-  //   desc: "WordPress-based internal site for event communications.",
-  //   // img: InternalMediaImage,
-  // },
+  {
+    id: 2,
+    title: "Joke Generator",
+    category: "React.js",
+    desc: "A simple joke generator app built with React.",
+    link: "https://joke-generatorsd.netlify.app/",
+    img: JOKEGENERATORImage,
+  },
   {
     id: 3,
     title: "Photography Contest Page",
@@ -132,7 +134,7 @@ const blogs = [
     date: "May 2025",
     excerpt: "HTML, CSS and JavaScript",
     img: SudokuImage,
-    link: "https://tic-tac-toe-theta-cyan-51.vercel.app/",
+    link: "https://sudoku-alpha-two.vercel.app/",
   },
   {
     id: 2,
@@ -140,7 +142,7 @@ const blogs = [
     date: "Apr 2025",
     excerpt: "HTML, CSS and JavaScript",
     img: TicTacToeImage,
-    link: "https://sudoku-alpha-two.vercel.app/",
+    link: "https://tic-tac-toe-theta-cyan-51.vercel.app/",
   },
 ];
 
