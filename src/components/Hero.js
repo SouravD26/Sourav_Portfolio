@@ -1,69 +1,74 @@
 import React, { useEffect, useState } from "react";
+import { roles, social } from "../data";
 
-const TEXT_LINES = ["Hello, I'm", "Sourav Dutta"];
-
-const Hero = () => {
-  const [currentText, setCurrentText] = useState("");
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
+const useTypewriter = (words) => {
+  const [text, setText] = useState("");
+  const [i, setI] = useState(0);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    // If we've finished all lines, stop.
-    if (lineIndex >= TEXT_LINES.length) return;
+    const word = words[i % words.length];
+    let delay = deleting ? 45 : 90;
+    if (!deleting && text === word) delay = 1600;
+    if (deleting && text === "") delay = 300;
 
-    const currentLine = TEXT_LINES[lineIndex] ?? "";
-
-    // If there are remaining characters in the current line, type next char.
-    if (charIndex < currentLine.length) {
-      const t = setTimeout(() => {
-        setCurrentText((prev) => prev + currentLine[charIndex]);
-        setCharIndex((prev) => prev + 1);
-      }, 120);
-      return () => clearTimeout(t);
-    }
-
-    // Current line finished: wait, then move to next line (or stop).
     const t = setTimeout(() => {
-      if (lineIndex + 1 < TEXT_LINES.length) {
-        setLineIndex((prev) => prev + 1);
-        setCharIndex(0);
-        setCurrentText((prev) => prev + "\n");
+      if (!deleting && text === word) setDeleting(true);
+      else if (deleting && text === "") {
+        setDeleting(false);
+        setI((n) => n + 1);
       } else {
-        // All lines done — you can reset here to loop, or just stop.
-        // To loop, uncomment:
-        // setLineIndex(0);
-        // setCharIndex(0);
-        // setCurrentText("");
+        setText(word.slice(0, text.length + (deleting ? -1 : 1)));
       }
-    }, 800);
+    }, delay);
     return () => clearTimeout(t);
-  }, [charIndex, lineIndex]);
+  }, [text, deleting, i, words]);
+
+  return text;
+};
+
+const Hero = () => {
+  const role = useTypewriter(roles);
 
   return (
-    <header
-      id="home"
-      className="hero d-flex align-items-center"
-      style={{ color: "#fff" }}
-    >
-      <div className="overlay" />
-      <div className="container text-center hero-content">
-        <pre className="typing-text text-white">{currentText}</pre>
+    <header id="home" className="hero">
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="orb orb-1" aria-hidden="true" />
+      <div className="orb orb-2" aria-hidden="true" />
 
-        <p className="lead">Web Developer</p>
-
-        <div className="mt-4">
-          <a
-            className="btn btn-outline-light me-2 text-white"
-            href="/SouravDutta_Resume.pdf"
-            download
-          >
+      <div className="hero-content">
+        <p className="hero-hello">Hello, I&apos;m</p>
+        <h1 className="hero-name" data-text="Sourav Dutta">
+          Sourav Dutta
+        </h1>
+        <p className="hero-role">
+          <span className="role-prefix">&gt;</span> {role}
+          <span className="caret">_</span>
+        </p>
+        <p className="hero-tagline">
+          Crafting fast, responsive and pixel-perfect web experiences with React.js — from
+          Kolkata to the world.
+        </p>
+        <div className="hero-cta">
+          <a className="btn-neon" href="#portfolio">
+            View My Work
+          </a>
+          <a className="btn-ghost" href="/SouravDutta_Resume.pdf" download>
             Download Resume
           </a>
-          <a className="btn btn-success text-white" href="#contact">
-            Contact Me
-          </a>
+        </div>
+        <div className="hero-social">
+          <a href={social.github} target="_blank" rel="noreferrer">GitHub</a>
+          <span>/</span>
+          <a href={social.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+          <span>/</span>
+          <a href={`mailto:${social.email}`}>Email</a>
         </div>
       </div>
+
+      <a href="#about" className="scroll-indicator" aria-label="Scroll down">
+        <span />
+      </a>
     </header>
   );
 };

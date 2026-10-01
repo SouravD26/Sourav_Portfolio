@@ -1,65 +1,59 @@
 import React from "react";
 import NavbarComp from "./components/Navbar";
 import Hero from "./components/Hero";
-import Portfolio from "./components/Portfolio";
-import Resume from "./components/Resume";
 import About from "./components/About";
+import Skills from "./components/Skills";
+import Resume from "./components/Resume";
+import Portfolio from "./components/Portfolio";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ParticleField from "./components/ParticleField";
+import Cursor from "./components/Cursor";
+import ClickRipple from "./components/ClickRipple";
+import useReveal from "./hooks/useReveal";
+
+const Section = ({ id, index, title, accent, children }) => (
+  <section id={id} className="section">
+    <div className="container-x">
+      <h2 className="section-title reveal">
+        <span className="section-index">{index}.</span> {title} <span className="accent">{accent}</span>
+      </h2>
+      {children}
+    </div>
+  </section>
+);
 
 function App() {
+  useReveal();
+
   return (
-    <div className="app-dark">
+    <div className="app">
+      <Cursor />
+      <ClickRipple />
+      <ParticleField />
       <NavbarComp />
       <main>
         <Hero />
-        <section id="portfolio" className="py-5">
-          <div className="container">
-            <h2 className="section-title">
-              Featured <span>Projects</span>
-            </h2>
-            <Portfolio />
-          </div>
-        </section>
-
-        <section id="about" className="py-5">
-          <div className="container">
-            <h2 className="section-title">
-              About <span>Me</span>
-            </h2>
-            <About />
-          </div>
-        </section>
-
-        <section id="resume" className="py-5">
-          <div className="container">
-            <h2 className="section-title">
-              My <span>Resume</span>
-            </h2>
-            <Resume />
-          </div>
-        </section>
-
-        <section id="blog" className="py-5">
-          <div className="container">
-            <h2 className="section-title">
-              Personal <span>Games</span>
-            </h2>
-            <Blog />
-          </div>
-        </section>
-
-        <section id="contact" className="py-5">
-          <div className="container">
-            <h2 className="section-title">
-              Get <span>In Touch</span>
-            </h2>
-            <Contact />
-          </div>
-        </section>
+        <Section id="about" index="01" title="About" accent="Me">
+          <About />
+        </Section>
+        <Section id="skills" index="02" title="Tech" accent="Stack">
+          <Skills />
+        </Section>
+        <Section id="experience" index="03" title="Experience &" accent="Education">
+          <Resume />
+        </Section>
+        <Section id="portfolio" index="04" title="Featured" accent="Projects">
+          <Portfolio />
+        </Section>
+        <Section id="blog" index="05" title="Personal" accent="Games">
+          <Blog />
+        </Section>
+        <Section id="contact" index="06" title="Get In" accent="Touch">
+          <Contact />
+        </Section>
       </main>
-
       <Footer />
     </div>
   );

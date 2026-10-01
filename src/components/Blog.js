@@ -1,33 +1,23 @@
 import React from "react";
 import { blogs } from "../data";
+import TiltCard from "./TiltCard";
 
-const Blog = () => {
-  return (
-    <div className="row g-6">
-      {blogs.map((b) => (
-        <div className="col-md-6" key={b.id}>
-          <a
-            href={b.link || "#"}
-            className="blog-link text-decoration-none"
-            target={b.link ? "_blank" : undefined}
-            rel={b.link ? "noreferrer" : undefined}
-            aria-label={b.title}
-          >
-            <div className="card blog-card">
-              <img src={b.img} className="card-img-top" alt={b.title} />
-              <div className="card-body text-center">
-                <h5 className="card-title">
-                  <b>{b.title}</b>
-                </h5>
-                <p className="card-text small text-muted">{b.date}</p>
-                <p className="card-text">{b.excerpt}</p>
-              </div>
-            </div>
-          </a>
+const Blog = () => (
+  <div className="games-grid">
+    {blogs.map((b) => (
+      <TiltCard key={b.id} href={b.link} className="project-card reveal">
+        <div className="project-img">
+          <img src={b.img} alt={b.title} loading="lazy" />
+          <span className="project-cat">{b.date}</span>
         </div>
-      ))}
-    </div>
-  );
-};
+        <div className="project-body">
+          <h3>{b.title}</h3>
+          <p>{b.excerpt}</p>
+          <span className="project-link">Play Now ↗</span>
+        </div>
+      </TiltCard>
+    ))}
+  </div>
+);
 
 export default Blog;

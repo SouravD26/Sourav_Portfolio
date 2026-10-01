@@ -1,49 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+const links = [
+  ["about", "About"],
+  ["skills", "Skills"],
+  ["experience", "Experience"],
+  ["portfolio", "Projects"],
+  ["blog", "Games"],
+  ["contact", "Contact"],
+];
 
 const NavbarComp = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      let current = "";
+      for (const [id] of links) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) current = id;
+      }
+      setActive(current);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div className="container">
-        <a className="navbar-brand" href="#home">
-          Sourav Dutta
+    <nav className={`nav-glass ${scrolled ? "scrolled" : ""}`}>
+      <div className="nav-inner">
+        <a className="brand" href="#home">
+          <span className="brand-mark">SD</span>
+          <span className="brand-text">Sourav Dutta</span>
         </a>
         <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navMenu"
+          className={`nav-toggle ${open ? "open" : ""}`}
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+          aria-expanded={open}
         >
-          <span className="navbar-toggler-icon" />
+          <span />
+          <span />
+          <span />
         </button>
-        <div className="collapse navbar-collapse" id="navMenu">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="#portfolio">
-                Portfolio
+        <ul className={`nav-links ${open ? "open" : ""}`}>
+          {links.map(([id, label]) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={active === id ? "active" : ""}
+                onClick={() => setOpen(false)}
+              >
+                {label}
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#resume">
-                Resume
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#about">
-                About
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#blog">
-                Games
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#contact">
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
       </div>
     </nav>
   );

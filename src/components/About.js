@@ -1,62 +1,61 @@
-import React from "react";
-import { social } from "../data";
+import React, { useEffect, useRef, useState } from "react";
+import { social, summary, stats } from "../data";
 import profile from "../assets/profile.jpg";
 
-const About = () => {
-  return (
-    <div className="row align-items-center">
-      <div className="col-md-4 text-center">
-        <img
-          src={profile}
-          alt="Sourav"
-          className="img-fluid rounded profile-img"
-        />
-      </div>
-      <div className="col-md-8">
-        <p className="lead ">
-          Web Developer with hands-on experience in front-end and full-stack
-          development. Skilled in HTML, CSS, JavaScript, Bootstrap, React.js,
-          Node.js, MongoDB, and WordPress. Experienced in building responsive
-          UIs, upgrading internal systems, and delivering clean, scalable code.
-        </p>
+const Counter = ({ value, suffix }) => {
+  const ref = useRef(null);
+  const [n, setN] = useState(0);
 
-        <div className="mt-3">
-          <a
-            className="btn btn-outline-light me-2"
-            href={social.linkedin}
-            target="_blank"
-            rel="noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a
-            className="btn btn-outline-light me-2"
-            href={social.github}
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            className="btn btn-outline-light me-2"
-            href={social.Netlify}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Netlify
-          </a>
-          <a
-            className="btn btn-outline-light"
-            href={social.Vercel}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Vercel
-          </a>
-        </div>
-      </div>
-    </div>
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / 1400, 1);
+        setN(Math.round(value * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [value]);
+
+  return (
+    <span ref={ref}>
+      {n}
+      {suffix}
+    </span>
   );
 };
+
+const About = () => (
+  <div className="about-grid">
+    <div className="about-photo reveal">
+      <div className="photo-ring" />
+      <img src={profile} alt="Sourav Dutta" />
+    </div>
+    <div className="about-text reveal delay-1">
+      <p className="lead-text">{summary}</p>
+      <div className="stats-grid">
+        {stats.map((s) => (
+          <div className="stat glass" key={s.label}>
+            <div className="stat-value">
+              <Counter value={s.value} suffix={s.suffix} />
+            </div>
+            <div className="stat-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div className="link-row">
+        <a className="chip-link" href={social.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <a className="chip-link" href={social.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a className="chip-link" href={social.Netlify} target="_blank" rel="noreferrer">Netlify ↗</a>
+        <a className="chip-link" href={social.Vercel} target="_blank" rel="noreferrer">Vercel ↗</a>
+      </div>
+    </div>
+  </div>
+);
 
 export default About;

@@ -44,87 +44,50 @@ const Contact = () => {
     }
   };
 
-  return (
-    <div className="row">
-      <div className="col-lg-7">
-        <form onSubmit={handleSubmit} className="contact-form">
-          <div className="mb-3">
-            <input
-              required
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Your Name"
-              disabled={loading}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              required
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Your Email"
-              disabled={loading}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              required
-              name="subject"
-              value={form.subject}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Subject"
-              disabled={loading}
-            />
-          </div>
-          <div className="mb-3">
-            <textarea
-              required
-              rows="6"
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Message"
-              disabled={loading}
-            />
-          </div>
-          <button className="btn btn-success" type="submit" disabled={loading}>
-            {loading ? "Sending..." : "Send Message"}
-          </button>
-          {status && (
-            <p
-              className="mt-2"
-              style={{
-                color: status.includes("✓") ? "#9ccf4a" : "#ff6b6b",
-              }}
-            >
-              {status}
-            </p>
-          )}
-        </form>
-      </div>
+  const field = (name, label, props = {}) => (
+    <div className="field">
+      {props.rows ? (
+        <textarea required name={name} id={name} value={form[name]} onChange={handleChange} placeholder=" " disabled={loading} {...props} />
+      ) : (
+        <input required name={name} id={name} value={form[name]} onChange={handleChange} placeholder=" " disabled={loading} {...props} />
+      )}
+      <label htmlFor={name}>{label}</label>
+    </div>
+  );
 
-      <div className="col-lg-5">
-        <div className="contact-details card p-3">
-          <h5>My Contact Details</h5>
-          <p className="mb-1">
-            <strong>Email:</strong> {social.email}
-          </p>
-          <p className="mb-1">
-            <strong>Phone:</strong> {social.phone}
-          </p>
-          <p className="mb-1">
-            <strong>Email:</strong> {social.email}
-          </p>
-          <p className="mb-1">
-            <strong>Location:</strong> {social.location}
-          </p>
+  return (
+    <div className="contact-grid">
+      <form onSubmit={handleSubmit} className="glass contact-form reveal">
+        <div className="field-row">
+          {field("name", "Your Name")}
+          {field("email", "Your Email", { type: "email" })}
+        </div>
+        {field("subject", "Subject")}
+        {field("message", "Message", { rows: 6 })}
+        <button className="btn-neon" type="submit" disabled={loading}>
+          {loading ? "Sending..." : "Send Message →"}
+        </button>
+        {status && (
+          <p className={`form-status ${status.includes("✓") ? "ok" : "err"}`}>{status}</p>
+        )}
+      </form>
+
+      <div className="contact-info reveal delay-1">
+        <p className="lead-text">
+          Have a project in mind or an opening on your team? My inbox is always open —
+          let&apos;s build something great together.
+        </p>
+        <a className="info-card glass" href={`mailto:${social.email}`}>
+          <span className="info-label">Email</span>
+          <span>{social.email}</span>
+        </a>
+        <a className="info-card glass" href={`tel:${social.phone.replace(/-/g, "")}`}>
+          <span className="info-label">Phone</span>
+          <span>{social.phone}</span>
+        </a>
+        <div className="info-card glass">
+          <span className="info-label">Location</span>
+          <span>{social.location}</span>
         </div>
       </div>
     </div>

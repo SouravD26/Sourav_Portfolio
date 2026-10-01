@@ -1,72 +1,63 @@
 import React, { useState } from "react";
 import { projects } from "../data";
+import TiltCard from "./TiltCard";
 
-const categories = [
-  "All",
-  ...Array.from(new Set(projects.map((p) => p.category))),
-];
+const categories = ["All", ...new Set(projects.map((p) => p.category))];
+
+const INITIAL = 6;
+const STEP = 3;
 
 const Portfolio = () => {
   const [filter, setFilter] = useState("All");
-
-  const filtered =
-    filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const [visible, setVisible] = useState(INITIAL);
+  const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const shown = filtered.slice(0, visible);
 
   return (
     <>
-      <div className="mb-4 text-center">
+      <div className="filters reveal">
         {categories.map((cat) => (
           <button
             key={cat}
-            onClick={() => setFilter(cat)}
-            className={`btn btn-sm me-2 mb-2 ${
-              filter === cat ? "btn-success" : "btn-outline-light"
-            }`}
+            onClick={() => {
+              setFilter(cat);
+              setVisible(INITIAL);
+            }}
+            className={`filter-btn ${filter === cat ? "active" : ""}`}
           >
             {cat}
           </button>
         ))}
       </div>
 
-      <div className="row g-4">
-        {filtered.map((p) => (
-          <div key={p.id} className="col-md-4 px-3">
-            {p.link ? (
-              <a
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div
-                  className="card portfolio-card h-100"
-                  style={{ border: "0.2px solid red" }}
-                >
-                  <img src={p.img} className="card-img-top" alt={p.title} />
-                  <div className="card-body d-flex flex-column px-4 py-3">
-                    <h5 className="card-title mb-2">{p.title}</h5>
-                    <p className="card-text small text-muted mb-2">
-                      {p.category}
-                    </p>
-                    <p className="card-text">{p.desc}</p>
-                  </div>
-                </div>
-              </a>
-            ) : (
-              <div className="card portfolio-card h-100">
-                <img src={p.img} className="card-img-top" alt={p.title} />
-                <div className="card-body d-flex flex-column px-4 py-3">
-                  <h5 className="card-title mb-2">{p.title}</h5>
-                  <p className="card-text small text-muted mb-2">
-                    {p.category}
-                  </p>
-                  <p className="card-text">{p.desc}</p>
-                </div>
-              </div>
-            )}
-          </div>
+      <div className="project-grid" key={filter}>
+        {shown.map((p, i) => (
+          <TiltCard
+            key={p.id}
+            href={p.link}
+            className="project-card pop-in"
+            style={{ animationDelay: `${(i % STEP) * 70}ms` }}
+          >
+            <div className="project-img">
+              <img src={p.img} alt={p.title} loading="lazy" />
+              <span className="project-cat">{p.category}</span>
+            </div>
+            <div className="project-body">
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+              <span className="project-link">{p.link ? "Live Demo ↗" : "Internal Project"}</span>
+            </div>
+          </TiltCard>
         ))}
       </div>
+
+      {visible < filtered.length && (
+        <div className="load-more">
+          <button className="btn-ghost" onClick={() => setVisible((v) => v + STEP)}>
+            Load More ({filtered.length - visible} more)
+          </button>
+        </div>
+      )}
     </>
   );
 };
