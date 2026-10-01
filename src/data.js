@@ -13,6 +13,7 @@ import RasuImage from "./assets/Rasu.png";
 import SushmaImage from "./assets/Sushma.png";
 import PinkGreyImage from "./assets/PinkGrey.png";
 import MinesweeperImage from "./assets/Minesweeper.png";
+import BluecoreeImage from "./assets/Bluecoree.png";
 
 const social = {
   linkedin: "https://www.linkedin.com/in/sourav-dutta-41baa215a/",
@@ -156,6 +157,14 @@ const projects = [
     desc: "Unisex salon website for Narendrapur with an animated brand intro and services showcase.",
     link: "https://pink-grey.vercel.app",
     img: PinkGreyImage,
+  },
+  {
+    id: 13,
+    title: "Bluecoree",
+    category: "Client Website",
+    desc: "IT services & development studio site — infrastructure, CCTV, networking, cloud and web/app development services.",
+    link: "https://www.bluecoree.com/",
+    img: BluecoreeImage,
   },
 ];
 
