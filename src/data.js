@@ -93,7 +93,7 @@ const projects = [
     title: "Real-Time Weather App",
     category: "React.js",
     desc: "SPA with OpenWeatherMap API and geolocation; debounced calls cut network requests by 60%.",
-    link: "https://weather-app-sd26.netlify.app/",
+    link: "https://weather-app-nu-pied-h7lts70143.vercel.app/",
     img: WeatherAppImage,
   },
   {
